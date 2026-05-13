@@ -9,7 +9,7 @@ from torch import nn
 from torch.utils.data import DataLoader, Dataset
 import torch.nn.functional as F
 
-Train = False # If set to True, runs convolution, if set to False jumps to loading last model generated
+Train = True # If set to True, runs convolution, if set to False jumps to loading last model generated
 
 #device = torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else "cpu" # Device agnostic code, see line below for the reson this is commented out.
 device = "cpu" # Manually hard-coded as my GPU has cuda but has a hardware architecture incompatable with modern pyToch leading to mistaken triggering of the Cuda accelerator
@@ -168,7 +168,7 @@ class EMGEncoder(nn.Module):
             nn.Conv1d(16, 32, kernel_size=5, padding=2), # 16 Features to 32
             nn.ReLU(),
             nn.MaxPool1d(2), # Halves time dimension
-            nn.Conv1d(32, 32, kernel_size=3, padding=1), # 32 Features to 16
+            nn.Conv1d(32, 32, kernel_size=3, padding=1), # 32 Features to 32
             nn.ReLU(),
             nn.MaxPool1d(4), # quarters time dimension
         )
