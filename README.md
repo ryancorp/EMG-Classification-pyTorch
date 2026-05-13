@@ -6,7 +6,7 @@ Experiments on the UCI EMG Gestures dataset (36 subjects, 6 gestures, 8 channels
 
 ## pyTorch Conv1d Autoencoder
 
-**Approach:** Trains one Conv1d autoencoder per gesture class (6 total). Anomaly detection is performed by comparing normalized reconstruction errors across all 6 models; the gesture whose autoencoder produced the lowest error is the predicted class.
+**Approach:** Trains one Conv1d autoencoder (8→16→32→32 channels, 16x time compression to bottleneck of 800 values) per gesture class (6 total). Anomaly detection is performed by comparing normalized reconstruction errors across all 6 models; the gesture whose autoencoder produced the lowest error is the predicted class.
 
 **Best result:** 34% accuracy. Gestures 4 and 5 reached ~62% individually. Gestures 1, 2, and 3 were consistently confused with one another and with whichever model had the lowest baseline error.
 
@@ -21,7 +21,7 @@ Experiments on the UCI EMG Gestures dataset (36 subjects, 6 gestures, 8 channels
 
 ## pyTorch Conv1d Classifier
 
-**Approach:** Single Conv1d classifier trained on all 6 gesture classes simultaneously using cross-entropy loss. Architecture consists of a 3-layer Conv1d encoder (8→16→32→16 channels, 16x time compression to bottleneck of 800 values) followed by a fully connected classification head (800→128→6). Subject-independent train/val/test split: subjects 1–30 series 1–3 for training (540 samples), series 4 for validation (180 samples), subjects 31–36 for final evaluation (144 samples).
+**Approach:** Single Conv1d classifier trained on all 6 gesture classes simultaneously using cross-entropy loss. Architecture consists of a 3-layer Conv1d encoder (8→16→32→32 channels, 16x time compression to bottleneck of 800 values) followed by a fully connected classification head (800→128→6). Subject-independent train/val/test split: subjects 1–30 series 1–3 for training (540 samples), series 4 for validation (180 samples), subjects 31–36 for final evaluation (144 samples).
 
 **Best result:** 27.4% accuracy.
 
